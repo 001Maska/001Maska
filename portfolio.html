@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masud – Web Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #121212;
+            --accent: #00ff88;
+            --accent-dim: #00cc6a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #252525;
+            --gradient-1: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            --gradient-2: linear-gradient(135deg, rgba(0,255,136,0.1) 0%, rgba(0,212,255,0.1) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(0,255,136,0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0,212,255,0.03) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            text-align: left;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .name {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-category:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0,255,136,0.1);
+        }
+
+        .tech-category h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .tech-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0,255,136,0.1);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0,255,136,0.1);
+            color: var(--accent);
+            border-radius: 4px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-link:hover {
+            color: var(--accent-dim);
+            transform: translateX(4px);
+        }
+
+        /* Process Section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+        }
+
+        /* Status */
+        .status-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 8rem 0;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .contact-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.2);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .projects-grid,
+            .tech-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p class="greeting">Hi, I'm Masud 👋</p>
+                <h1 class="name">Web Developer</h1>
+                <div class="tagline">
+                    <p>I build fast, modern, and responsive websites.</p>
+                    <p>Focused on clean UI and solid backend logic.</p>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I'm a web developer who enjoys turning ideas into real products. I focus on performance, clean code, and user experience. Whether it's crafting responsive frontends or building robust backend systems, I'm committed to delivering solutions that work seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Tech Stack</h2>
+            <p class="section-subtitle">Technologies I work with to build modern web applications</p>
+            
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3>Frontend</h3>
+                    <ul class="tech-list">
+                        <li>HTML5</li>
+                        <li>CSS3 / Tailwind CSS</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>Backend</h3>
+                    <ul class="tech-list">
+                        <li>Python</li>
+                        <li>Flask / Django</li>
+                        <li>REST APIs</li>
+                        <li>SQL / PostgreSQL</li>
+                        <li>Authentication</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>Tools & Other</h3>
+                    <ul class="tech-list">
+                        <li>Git / GitHub</li>
+                        <li>VS Code</li>
+                        <li>Postman</li>
+                        <li>Docker (basics)</li>
+                        <li>Deployment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">A selection of my recent work showcasing various technologies and approaches</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">Personal Portfolio Website</h3>
+                    <p class="project-description">A fully responsive portfolio website showcasing projects and skills with modern design and smooth animations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Web App Dashboard</h3>
+                    <p class="project-description">Interactive dashboard with data visualization, real-time updates, and intuitive UI for managing application metrics.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">API-Based Web App</h3>
+                    <p class="project-description">Full-stack application integrating third-party APIs with custom backend logic and responsive frontend interface.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Authentication System</h3>
+                    <p class="project-description">Secure user authentication and authorization system with JWT tokens, password hashing, and protected routes.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">E-Commerce Landing Page</h3>
+                    <p class="project-description">Modern, conversion-optimized landing page with product showcase, shopping cart functionality, and smooth checkout flow.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">How I Work</h2>
+            <p class="section-subtitle">My approach to building quality web applications</p>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h3 class="step-title">Plan</h3>
+                    <p class="step-description">Understand requirements and define project scope</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h3 class="step-title">Design</h3>
+                    <p class="step-description">Create simple & clean UI/UX wireframes</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h3 class="step-title">Build</h3>
+                    <p class="step-description">Write scalable and readable code</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h3 class="step-title">Deliver</h3>
+                    <p class="step-description">Test thoroughly and optimize for production</p>
+                </div>
+            </div>
+
+            <div class="status-box">
+                <div class="status-indicator"></div>
+                <p class="status-text">Currently building projects using modern web technologies and exploring new frameworks</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="contact-title">Let's Build Something Together</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">I'm always interested in hearing about new projects and opportunities.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:masud.khalif@outlook.com" class="contact-btn">Email</a>
+                <a href="https://github.com/001Maska/001Maska" target="_blank" class="contact-btn">GitHub</a>
+                <a href="https://linkedin.com/in/masud-khalif" target="_blank" class="contact-btn">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Masud. Built with passion and clean code.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for scroll animations
+        document.querySelectorAll('.project-card, .tech-category, .process-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
